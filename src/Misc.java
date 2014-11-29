@@ -9,10 +9,17 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+import help.Converter;
+import help.Formula;
+import help.Person;
+import help.PersonFactory;
+import help.Something;
+
 /**
+ *
  * Created by Patrick on 29.11.2014.
  */
-public class WhatsNew {
+public class Misc {
 
   private void defaultMethods() {
     Formula formula = new Formula() {
@@ -71,13 +78,13 @@ public class WhatsNew {
     System.out.println(converted);    // "J"
   }
 
-  private void crazyFactoryExample(){
+  private void crazyFactoryExample() {
     PersonFactory<Person> personFactory = Person::new;
     Person person = personFactory.create("Peter", "Parker");
   }
 
 
-  private void predicates(){
+  private void predicates() {
     Predicate<String> predicate = (s) -> s.length() > 0;
 
     predicate.test("foo");              // true
@@ -91,24 +98,25 @@ public class WhatsNew {
   }
 
 
-  private void functions(){
+  private void functions() {
     Function<String, Integer> toInteger = Integer::valueOf;
     Function<String, String> backToString = toInteger.andThen(String::valueOf);
 
     backToString.apply("123");     // "123"
   }
 
-  private void suppliers(){
+  private void suppliers() {
     Supplier<Person> personSupplier = Person::new;
-    personSupplier.get();   // new Person
+    personSupplier.get();   // new help.Person
   }
 
-  private void consumers(){
+  // Consumers represents operations to be performed on a single input argument
+  private void consumers() {
     Consumer<Person> greeter = (p) -> System.out.println("Hello, " + p.firstName);
     greeter.accept(new Person("Luke", "Skywalker"));
   }
 
-  private void comparators(){
+  private void comparators() {
     Comparator<Person> comparator = (p1, p2) -> p1.firstName.compareTo(p2.firstName);
 
     Person p1 = new Person("John", "Doe");
@@ -118,7 +126,7 @@ public class WhatsNew {
     comparator.reversed().compare(p1, p2);  // < 0
   }
 
-  private void optionals(){
+  private void optionals() {
     Optional<String> optional = Optional.of("bam");
 
     optional.isPresent();           // true
@@ -127,4 +135,6 @@ public class WhatsNew {
 
     optional.ifPresent((s) -> System.out.println(s.charAt(0)));     // "b"
   }
+
+
 }
